@@ -1,14 +1,4 @@
 """
-Loading data and test example
-
-Usage:
-> <python executable> - <the path to this file> - <path to the dataset> - <batch size>
-OR
-> <python executable> - <the path to this file> - <path to the dataset> (no generator is used)
-Example:
-> C:/Users/DIK/PycharmProjects/FER_project/venv/Scripts/python.exe
-C:/Users/DIK/PycharmProjects/FER_project/load_data.py F:/dataset 3
-
 Used Python 3.7.5
 
 Requirements. Run these commands:
@@ -23,10 +13,6 @@ import os
 import sys
 import numpy
 from PIL import Image
-
-if len(sys.argv) == 1:  # the first argument is the script name itself
-    raise Exception("Directory argument is missing")
-
 
 class DataGenerator(object):
     def __init__(self, path):
@@ -90,11 +76,3 @@ class DataGenerator(object):
             except StopIteration:
                 yield data, labels  # get the last remaining elements and stop looping
                 break
-
-
-if __name__ == "__main__":
-    batch_sz = int(sys.argv[2]) if len(sys.argv) == 3 else 0
-    gen = DataGenerator(sys.argv[1])
-    data = gen.data_generator(batch_sz) if batch_sz else gen.get_images()
-    for _, y in data:
-        print(y)
