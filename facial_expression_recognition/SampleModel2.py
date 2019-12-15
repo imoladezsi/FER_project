@@ -14,6 +14,9 @@ from facial_expression_recognition.ModelInterface import ModelInterface
 
 class SampleModel2(ModelInterface):
 
+    def fit(self):
+        return self._model.fit()
+
     def get_name(self):
         return self.__class__.__name__
 
@@ -23,6 +26,8 @@ class SampleModel2(ModelInterface):
         self._dropout = 0
         self._init_lr = 0
         self._nr_classes = 0
+
+    def initialize_model(self):
         self._model = self.create_model()
 
     def set_params(self,  img_dim, depth, dropout, init_lr, classes_no):

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>497</width>
-    <height>367</height>
+    <height>516</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,12 +18,22 @@
     <property name="geometry">
      <rect>
       <x>70</x>
-      <y>20</y>
-      <width>341</width>
-      <height>292</height>
+      <y>1</y>
+      <width>391</width>
+      <height>318</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Preprocessing</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" colspan="2">
+      <widget class="QListView" name="preprocListView"/>
+     </item>
      <item row="6" column="1">
       <widget class="QLabel" name="label_4">
        <property name="text">
@@ -31,25 +41,18 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="2">
-      <widget class="QLineEdit" name="learningRateLineEdit"/>
-     </item>
-     <item row="7" column="2">
+     <item row="8" column="2">
       <widget class="QPushButton" name="destinationButton">
        <property name="text">
         <string>Choose directory</string>
        </property>
       </widget>
      </item>
+     <item row="5" column="2">
+      <widget class="QLineEdit" name="learningRateLineEdit"/>
+     </item>
      <item row="6" column="2">
       <widget class="QLineEdit" name="imgDimLineEdit"/>
-     </item>
-     <item row="7" column="1">
-      <widget class="QLabel" name="label_6">
-       <property name="text">
-        <string>Save to</string>
-       </property>
-      </widget>
      </item>
      <item row="2" column="1" colspan="2">
       <widget class="QComboBox" name="faceDetComboBox"/>
@@ -57,10 +60,31 @@
      <item row="3" column="1" colspan="2">
       <widget class="QComboBox" name="modelComboBox"/>
      </item>
+     <item row="8" column="1">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>Save to</string>
+       </property>
+      </widget>
+     </item>
      <item row="5" column="1">
       <widget class="QLabel" name="label_3">
        <property name="text">
         <string>LR</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="faceDetLabel">
+       <property name="text">
+        <string>Face detection algorithm</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="2">
+      <widget class="QPushButton" name="runButton">
+       <property name="text">
+        <string>Run</string>
        </property>
       </widget>
      </item>
@@ -78,34 +102,10 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="faceDetLabel">
-       <property name="text">
-        <string>Face detection algorithm</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="2">
-      <widget class="QPushButton" name="runButton">
-       <property name="text">
-        <string>Run</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="2">
-      <widget class="QLineEdit" name="batchSizeLineEdit"/>
-     </item>
      <item row="4" column="1">
       <widget class="QLabel" name="label_2">
        <property name="text">
         <string>Batch size</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Training parameters</string>
        </property>
       </widget>
      </item>
@@ -116,15 +116,25 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_5">
+     <item row="4" column="0">
+      <widget class="QLabel" name="label">
        <property name="text">
-        <string>Preprocessing</string>
+        <string>Training parameters</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1" colspan="2">
-      <widget class="QListView" name="preprocListView"/>
+     <item row="4" column="2">
+      <widget class="QLineEdit" name="batchSizeLineEdit"/>
+     </item>
+     <item row="7" column="1">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>Dropout</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="2">
+      <widget class="QLineEdit" name="dropoutLineEdit"/>
      </item>
     </layout>
    </widget>
@@ -150,28 +160,12 @@
    <slot>getDirectory()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>148</x>
-     <y>59</y>
+     <x>149</x>
+     <y>45</y>
     </hint>
     <hint type="destinationlabel">
      <x>55</x>
      <y>74</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>runButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>train()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>369</x>
-     <y>325</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>416</x>
-     <y>366</y>
     </hint>
    </hints>
   </connection>
@@ -188,6 +182,22 @@
     <hint type="destinationlabel">
      <x>416</x>
      <y>285</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>runButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>train()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>369</x>
+     <y>325</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>416</x>
+     <y>366</y>
     </hint>
    </hints>
   </connection>

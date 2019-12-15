@@ -14,7 +14,7 @@ app = QtWidgets.QApplication(sys.argv)
 fd_algs = [ViolaJones(""),]
 fd_repo = FaceDetectionRepository(fd_algs)
 
-fer_models = [SampleModel1(), SampleModel2(),]  # TODO: use something like the class FER for this, to call its methods and make them common
+fer_models = [SampleModel1(), SampleModel2(),]
 fer_repo = FerRepository(fer_models)
 
 

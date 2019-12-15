@@ -1,4 +1,5 @@
 """
+
 Used Python 3.7.5
 
 Requirements. Run these commands:
@@ -7,9 +8,11 @@ pip install numpy
 
 Supported formats:
 https://github.com/python-pillow/Pillow/blob/master/docs/handbook/image-file-formats.rst
+
 """
 
 import os
+import random
 import sys
 import numpy
 from PIL import Image
@@ -40,19 +43,22 @@ class DataGenerator(object):
                 paths.append(image_path)
         return paths
 
-    def get_images(self):
+    def get_images(self, size):
         data = []
         labels = []
         image_paths = self.__return_paths()
+        random.shuffle(image_paths)
+
         if not image_paths:
             raise Exception("No images were found")
         for path in image_paths:
             image = Image.open(path)
-            numpy_array = numpy.asarray(image)
-            data.append(numpy_array)
+            image = image.resize((size, size),)
+            narr = numpy.asarray(image)
+            data.append(narr)
             label = path.split(os.path.sep)[-2]
             labels.append(label)
-        return zip(data, labels)
+        return data, labels   # should be zipped
 
     def data_generator(self, batch_size):
         start = 0
