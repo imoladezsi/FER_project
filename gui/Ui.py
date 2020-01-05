@@ -5,8 +5,9 @@ from os.path import expanduser
 from PyQt5.QtWidgets import *
 import logging
 
+from face_detection import FaceDetectionInterface
 from facial_expression_recognition.ModelInterface import  ModelInterface
-from facial_expression_recognition.FerRepository import FerRepository
+from facial_expression_recognition.FerAPI import FerAPI
 
 
 class Ui(QtWidgets.QMainWindow):
@@ -16,10 +17,10 @@ class Ui(QtWidgets.QMainWindow):
         self.directory_path = None
         self.save_to = None
         self.fd_repo = face_det_repo
-        self.fer_repo: FerRepository = fer_repo
+        self.fer_repo: FerAPI = fer_repo
         self.fer_options = self.fer_repo.get_options()
         self.fd_options = self.fd_repo.get_options()
-        self.current_fd = None
+        self.current_fd: FaceDetectionInterface = None
         self.current_fer: ModelInterface = None
 
         self.window = uic.loadUi('MainWindow.ui', self)  # Load the .ui file
@@ -39,7 +40,8 @@ class Ui(QtWidgets.QMainWindow):
         self.window.dropoutLineEdit.setText(str(self.current_fer.get_dropout()))
         self.window.imgDimLineEdit.setText(str(self.current_fer.get_img_dim()))
         self.window.batchSizeLineEdit.setText(str(self.current_fer.get_batch_size()))
-        # self.window.epochsLineEdit.setText(str(self.current_fer.get_epochs()))
+        self.window.epochsLineEdit.setText(str(self.current_fer.get_epochs()))
+        self.window.splitLineEdit.setText(str(self.current_fer.get_split()))
 
         # signals and slots
         self.window.faceDetComboBox.currentIndexChanged.connect(self.onFDComboBoxChanged, self.window.faceDetComboBox.currentIndex())
@@ -64,13 +66,12 @@ class Ui(QtWidgets.QMainWindow):
             batch_size = int(self.window.batchSizeLineEdit.text())
             classes = self.get_classes()
             depth = 3
-            epochs = 1
-            split = 80   # todo: include these also in the UI
-
+            epochs = int(self.window.epochsLineEdit.text())
+            split = int(self.window.splitLineEdit.text())
             self.current_fer.set_params(img_dim, dropout, init_lr, len(classes), depth, batch_size, epochs)
             self.current_fer.initialize_model()
 
-            lb, model = FerRepository.train(self.current_fer, self.directory_path, img_dim, split, epochs, batch_size)
+            lb, model = FerAPI.train(self.current_fer, self.current_fd, self.directory_path, img_dim, split, epochs, batch_size)
 
             # default save to location
             if self.save_to is None:
@@ -78,7 +79,7 @@ class Ui(QtWidgets.QMainWindow):
                 if not os.path.exists(self.save_to):
                     os.mkdir(self.save_to)
 
-            FerRepository.save_training_data(self.current_fer, lb ,self.save_to, self.current_fer.get_name())
+            FerAPI.save_training_data(self.current_fer, lb, self.save_to, self.current_fer.get_name(), epochs)
         except Exception as e:
             logging.exception("Error")
 

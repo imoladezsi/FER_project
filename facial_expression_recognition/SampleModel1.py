@@ -14,6 +14,9 @@ from facial_expression_recognition.ModelInterface import ModelInterface
 
 class SampleModel1(ModelInterface):
 
+    def get_history(self):
+        return self._model.history
+
     def save(self, path):
         return self._model.save(path)
 

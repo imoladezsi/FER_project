@@ -13,7 +13,7 @@ from load_data import DataGenerator
 from utils.Helpers import Helpers
 
 
-class FerRepository(Repository):
+class FerAPI(Repository):
 
     @staticmethod
     def load_label_binarizer(model_path):
@@ -42,13 +42,12 @@ class FerRepository(Repository):
         return model.load_model(model_path)
 
     @staticmethod
-    def train(model, dataset_path, img_dim, split, epochs, batch_size):
+    def train(model, fd_classifier, dataset_path, img_dim, split, epochs, batch_size):
         try:
             gen = DataGenerator(dataset_path)
-            data, labels = gen.get_images(img_dim)
+            data, labels = gen.get_images(img_dim, fd_classifier)
 
-
-            # manually split them
+            # split them manually
             split = int(len(data)*split/100)
             train_x, test_x = data[:split], data[split:]
             train_y, test_y = labels[:split], labels[split:]
@@ -70,8 +69,8 @@ class FerRepository(Repository):
 
     @staticmethod
     def save_training_data(model, lb, output_path, save_as, figure_epochs = 0):
-        FerRepository.save_model(model, output_path, save_as)
-        FerRepository.save_label_binarizer(lb, output_path, save_as)
+        FerAPI.save_model(model, output_path, save_as)
+        FerAPI.save_label_binarizer(lb, output_path, save_as)
         if figure_epochs != 0:
             Helpers.save_figure(model.get_history(), figure_epochs, output_path, save_as)
 

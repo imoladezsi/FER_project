@@ -17,13 +17,27 @@
    <widget class="QWidget" name="gridLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>1</y>
+      <x>20</x>
+      <y>10</y>
       <width>391</width>
-      <height>318</height>
+      <height>370</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
+     <item row="4" column="1">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Batch size</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Image dim</string>
+       </property>
+      </widget>
+     </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_5">
        <property name="text">
@@ -34,57 +48,29 @@
      <item row="1" column="1" colspan="2">
       <widget class="QListView" name="preprocListView"/>
      </item>
-     <item row="6" column="1">
-      <widget class="QLabel" name="label_4">
+     <item row="8" column="1">
+      <widget class="QLabel" name="label_8">
        <property name="text">
-        <string>Image dim</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="2">
-      <widget class="QPushButton" name="destinationButton">
-       <property name="text">
-        <string>Choose directory</string>
+        <string>Epochs</string>
        </property>
       </widget>
      </item>
      <item row="5" column="2">
       <widget class="QLineEdit" name="learningRateLineEdit"/>
      </item>
-     <item row="6" column="2">
-      <widget class="QLineEdit" name="imgDimLineEdit"/>
+     <item row="3" column="1" colspan="2">
+      <widget class="QComboBox" name="modelComboBox"/>
      </item>
      <item row="2" column="1" colspan="2">
       <widget class="QComboBox" name="faceDetComboBox"/>
      </item>
-     <item row="3" column="1" colspan="2">
-      <widget class="QComboBox" name="modelComboBox"/>
-     </item>
-     <item row="8" column="1">
-      <widget class="QLabel" name="label_6">
-       <property name="text">
-        <string>Save to</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>LR</string>
-       </property>
-      </widget>
+     <item row="6" column="2">
+      <widget class="QLineEdit" name="imgDimLineEdit"/>
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="faceDetLabel">
        <property name="text">
         <string>Face detection algorithm</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="2">
-      <widget class="QPushButton" name="runButton">
-       <property name="text">
-        <string>Run</string>
        </property>
       </widget>
      </item>
@@ -95,17 +81,17 @@
        </property>
       </widget>
      </item>
+     <item row="5" column="1">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>LR</string>
+       </property>
+      </widget>
+     </item>
      <item row="0" column="0">
       <widget class="QPushButton" name="directoryButton">
        <property name="text">
         <string>Choose directory</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Batch size</string>
        </property>
       </widget>
      </item>
@@ -136,6 +122,40 @@
      <item row="7" column="2">
       <widget class="QLineEdit" name="dropoutLineEdit"/>
      </item>
+     <item row="9" column="2">
+      <widget class="QLineEdit" name="splitLineEdit"/>
+     </item>
+     <item row="8" column="2">
+      <widget class="QLineEdit" name="epochsLineEdit"/>
+     </item>
+     <item row="9" column="1">
+      <widget class="QLabel" name="label_9">
+       <property name="text">
+        <string>Split (%)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="0">
+      <widget class="QPushButton" name="destinationButton">
+       <property name="text">
+        <string>Choose directory</string>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="1" colspan="2">
+      <widget class="QPushButton" name="runButton">
+       <property name="text">
+        <string>Run</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="1" colspan="2">
+      <widget class="QLabel" name="destLabel">
+       <property name="text">
+        <string>Save to</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
   </widget>
@@ -154,22 +174,6 @@
  <resources/>
  <connections>
   <connection>
-   <sender>directoryButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>getDirectory()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>149</x>
-     <y>45</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>55</x>
-     <y>74</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>destinationButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
@@ -182,6 +186,22 @@
     <hint type="destinationlabel">
      <x>416</x>
      <y>285</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>directoryButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>getDirectory()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>149</x>
+     <y>45</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>55</x>
+     <y>74</y>
     </hint>
    </hints>
   </connection>

@@ -43,7 +43,7 @@ class DataGenerator(object):
                 paths.append(image_path)
         return paths
 
-    def get_images(self, size):
+    def get_images(self, size, fd_classifier):
         data = []
         labels = []
         image_paths = self.__return_paths()
@@ -53,7 +53,10 @@ class DataGenerator(object):
             raise Exception("No images were found")
         for path in image_paths:
             image = Image.open(path)
-            image = image.resize((size, size),)
+            image = fd_classifier.get_cropped_face(image)
+            if not image: # no face was found on this one so we skip it
+                continue
+            image = image.resize((size, size), )
             narr = numpy.asarray(image)
             data.append(narr)
             label = path.split(os.path.sep)[-2]

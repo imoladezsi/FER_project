@@ -62,3 +62,6 @@ class ModelInterface(object):
 
     def load_model(self, path):
         raise NotImplementedError
+
+    def get_history(self):
+        raise NotImplementedError
